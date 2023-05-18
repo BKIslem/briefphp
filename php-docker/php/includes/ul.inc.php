@@ -1,18 +1,41 @@
+<?php
+ if (isset($_GET['debegging'])){ $active='active';} else{$active=' ' ;}
+ if(isset($_GET['concatenation'])){$active1='active';} else{$active1=' ' ;}
+ if(isset($_GET['loop'])){$active2='active';} else{$active2=' ' ;}
+ if(isset($_GET['function'])){$active3='active';} else{$active3=' ' ;}
+ if(isset($_GET['del'])){$active4='active';} else{$active4=' ' ;}
+?>
+<ul>
+<?php
+if(isset($_SESSION['table'])){?>
+<form method="post" action="index.php" enctype="multipart/form-data">
+            <input type="submit" class="list-group-item list-group-item-action" name ='home' value='Home'>
+          </form>
+    <form method="post" action="index.php?debegging" enctype="multipart/form-data">
+    <input type="submit" class="list-group-item list-group-item-action <?php echo $active;?>" name='deb' value='Débogage'>
+</form>
+<form method="post" action="index.php?concatenation" enctype="multipart/form-data">
+    <input type="submit" class="list-group-item list-group-item-action <?php echo $active1;?>" name='conca' value='Concaténation'>
+    </form>
+    <form method="post" action="index.php?loop" enctype="multipart/form-data">
+    <input type="submit" class="list-group-item list-group-item-action <?php echo $active2;?>" name='boucle' value='Boucle'>
+    </form>
+    <form method="post" action="index.php?function" enctype="multipart/form-data">
+    <input type="submit" class="list-group-item list-group-item-action <?php echo $active3;?>" name='fonction' value='fonction'>
+    </form> 
+    <form method="post" action="index.php?del" enctype="multipart/form-data">
+    <input type="submit" class="list-group-item list-group-item-action<?php echo $active4;?>" name='supprimer' value='Supprimer'>
+</form>
+</ul>
+<?php
+}
+else {?>
+<ul>
+<form method="post" action="index.php" enctype="multipart/form-data">
+            <input type="submit" class="list-group-item list-group-item-action" name ='home' value='Home'>
+          </form> 
+          </ul>
+          <?php
 
- <div class="list-group">
-    <?php
-    if(isset($_SESSION)){?>
-    <button type="button" class="list-group-item list-group-item-action">HOME</button>
-    <button type="button" class="list-group-item list-group-item-action">Débogage</button>
-    <button type="button" class="list-group-item list-group-item-action">Concaténation</button>
-    <button type="button" class="list-group-item list-group-item-action">Boucle</button>
-    <button type="button" class="list-group-item list-group-item-action">Fonction</button>
-    <button type="button" class="list-group-item list-group-item-action">Supprimer</button>
-    <?php
-    }
-    else { ?>
-    <button type="button" class="list-group-item list-group-item-action">HOME</button>
-    <?php
-    }
-    ?>
-</div>
+}
+   ?>
