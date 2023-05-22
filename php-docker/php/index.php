@@ -4,18 +4,27 @@ $table = array();
 error_reporting(E_ALL);
 if (isset($_SESSION['table'])){
 $table = $_SESSION['table'];}
+function readTable() {
+                      
+  $table = $_SESSION['table'];
+$i = 0;
+foreach ($table as $index => $element) {?><p><?php
+echo 'à la ligne n° ' . $i . ' correspond la clé "' . $index . ' "et contient" '.$element .'"<br>';
+$i++;
+?> </p><?php
+}}
 ?>
 <!DOCTYPE html>
 <?php
 include "./includes/head.inc.html"
 ?>
 <body> 
-<?php
-include "./includes/header.inc.html";
-?>
-    <div class="container-lg">
+<div class="container">
      <div class="row justify-content-center">
-       <div class="col-md-3">
+    <?php
+    include "./includes/header.inc.html";
+      ?>
+       <div class="col-md-3 col-xl-2">
         <div class="list-group">
         <ul>
         <?php
@@ -24,12 +33,12 @@ include "./includes/header.inc.html";
         </ul>
         </div>
        </div>
-         <div class="col-md-9">
+         <div class="col-md-9 col-xl-10">
             <section>
               <?php
                if (isset($_GET['add'])) {
-                ?><h1 class="text-center">Ajouter des données</h1>
-                <?php
+                  ?><h1 class="text-center">Ajouter des données</h1>
+                  <?php
                   include "./includes/form.inc.html";}
                 
                elseif (isset($_POST ['enregister'])){
@@ -50,6 +59,7 @@ include "./includes/header.inc.html";
                       include "./includes/form2.inc.php";
                     }
                elseif (isset($_POST ['enregister_f2'])){
+               
                       $table ['first_name'] = isset($_POST['prenom']) ? $_POST['prenom'] : null;
                       $table ['last_name'] = isset($_POST['nom']) ? $_POST['nom'] : null;
                       $table ['age'] = isset($_POST['age']) ? $_POST['age'] : null;
@@ -64,19 +74,41 @@ include "./includes/header.inc.html";
                       $table ['Symphony'] = isset($_POST['Symphony']) ? $_POST['Symphony'] : null;
                       $table ['color'] = isset($_POST['color']) ? $_POST['color'] : null;
                       $table ['dateNaissance'] = isset($_POST['dateNaissance']) ? $_POST['dateNaissance'] : null;
-                      $table ['inputfile'] = isset($_POST['inputfile']) ? $_POST['inputfile'] : null;
-
+                      $table ['img'] = $_FILES['img']; 
+                      $file= $table ['img']; 
+                      $type = $file['type'];
+                      $size = $file['size'];
+                      $temp = $file['tmp_name'];
+                      $name = $file["name"]; 
+                      $path = 'uploaded/' . $name ;
+                      move_uploaded_file($temp, $path);
                       $_SESSION['table'] = $table;
+                      if($size>2000000){
+                        echo'<div class="alert alert-danger" role="alert">
+                        la taille de l\'image doit être inférieure à 2Mo
+                      </div>';}
+                      elseif($type=='pdf'){
+                      echo'<div class="alert alert-danger" role="alert">Extension "PDF" non prise en charge 
+                      </div>';}
+                      elseif(isset($file['type'])){
+                        echo'<div class="alert alert-danger" role="alert">Aucun fichier n\'a été téléchargé 
+                        </div>';
+                      }
+        
+                        else{
                            ?>
                            <div class="alert alert-success text-center" role="alert">
                               Données sauvegardées
                             </div> 
                             <?php
+                            }
     
                          }
 
                elseif(isset($_POST['deb'])){
+                print"<pre>";
                     print_r($table);
+                    print"<pre>";
                     }
                elseif(isset($_POST['conca'])){
                           ?>
@@ -147,15 +179,6 @@ include "./includes/header.inc.html";
                     <h2 class='text-center'>Fonction</h2>
                     <h3>===> J'utilise ma fonction readTable</h3>
                     <?php 
-                    function readTable() {
-                      if (isset($_SESSION['table'])){
-                        $table = $_SESSION['table'];
-                      $i = 0;
-                    foreach ($table as $index => $element) {?><p><?php
-                      echo 'à la ligne n° ' . $i . ' correspond la clé "' . $index . ' "et contient" '.$element .'"<br>';
-                      $i++;
-                      ?> </p><?php
-                      }}}
                      readTable();
                       }
                 
@@ -190,12 +213,13 @@ include "./includes/header.inc.html";
 	         </section> 
         </div>
       </div>
-    </div>
-<footer>
-  <?php
-  include "./includes/footer.inc.html";
-  ?>
-</footer>
+    
+      <footer>
+        <?php
+        include "./includes/footer.inc.html";
+        ?>
+        </footer>
+</div>
 </body>
 
 </html>

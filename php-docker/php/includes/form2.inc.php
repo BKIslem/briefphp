@@ -1,7 +1,6 @@
-<h2 class='text-center'>Ajouter plus de données</h2>
 <form method="post" action="../index.php" enctype="multipart/form-data">
+<h2 class='text-center'>Ajouter plus de données</h2>
 <div class='row'>
-
     <div class='card col-md-7 mx-auto my-1'>
           <br>
           <input type="text" class="form-control" name="prenom" id="prenom" placeholder="Prénom" required>
@@ -20,17 +19,17 @@
               <span class="input-group-text">m</span>
             </div>
           </div>
-          
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="radio" id="radio1" value="Women" required>
-            <label class="form-check-label" for="radio1">Femme</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="radio" id="radio2" value="Man" required>
-            <label class="form-check-label" for="radio2">Homme</label>
-        </div>
+          <label class="form-check-label" for="radio1">Femme
+                <input class="form-check-input" type="radio" name="radio" id="radio1" value="Women" required>
+                </label>
+                <label style="padding-left: 2rem" class="form-check-label" for="radio2">Homme
+                <input class="form-check-input" type="radio" name="radio" id="radio2" value="Man" required>
+                </label>
+            </div>
     </div>
         <div class='card col-md-4 mx-auto my-1 '>
+          
             <h3>Connaissances</h3>
             <div class="form-check">
             <input class="form-check-input" type="checkbox" name="HTML" value="HTML" id="defaultCheck1" require>
@@ -63,9 +62,7 @@
             <div class="form-check">
             <input class="form-check-input" type="checkbox" name="React" value="React" id="defaultCheck8" >
             <label class="form-check-label" for="defaultCheck1">React</label>
-            
             </div>
-            <br>
             <label for="exampleColorInput" class="form-label">Couleur préferée</label>
             <input type="color" class="form-control form-control-color" name="color" id="exampleColorInput" value="#be86d4" title="Choose your color" required>
             <div class="form-group">
@@ -73,29 +70,18 @@
             <input type="date" id="dateNaissance" name="dateNaissance" class="form-control" required>
             </div>
          
-
-
-
-
-        </div>
-
-
-
-
-
         </div>
             <div class='card col-md-11 mx-auto my-1'>
                 <div class="mb-3 mx-1">
-                    <label for="inputfile" class="form-label">Joindre une image (jpg ou png) </label>
-                    <input type="file" class="form-control" name="inputfile" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Parcourir..."> 
+                    <label for="image" class="form-label">Joindre une image (jpg ou png) </label>
+                    <input type="file" class="form-control" name="img"  aria-label="Parcourir..."> 
                 </div>
-
-
-            </div>
-            <br>
-              <input type="submit" class="btn btn-primary float-end" name="enregister_f2"
-              value="Enregistrer des données"/>
-            </form>
         </div>
+               <br>
+</div>
+                 <input type="submit" class="btn btn-primary float-end" name="enregister_f2"
+                  value="Enregistrer des données">
+                  
 
+</form>
 
