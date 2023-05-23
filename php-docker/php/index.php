@@ -10,7 +10,7 @@ function readTable() {
   $i = 0;
   foreach ($table as $index => $element) { 
   if(is_array($element)) {
-    $element ='<img src="./uploaded/img1.jpg">';
+    $element ='<img src="./uploaded/img1.jpg" style="max-width:100%">';
      }
   echo 'à la ligne n° ' . $i . ' correspond la clé "' . $index . ' "et contient" '.$element .'"<br>';
   $i++;}
@@ -177,7 +177,7 @@ include "./includes/head.inc.html"
                     
                     foreach ($table as $index => $element) { 
                       if(is_array($element)) {
-                        $element ='<img src="./uploaded/img1.jpg" max-width="100">';
+                        $element ='<img src="./uploaded/img1.jpg" style="max-width:100%">';
                          }
                      echo 'à la ligne n° ' . $i . ' correspond la clé "' . $index . ' "et contient" '.$element .'"<br>';
                      
@@ -194,7 +194,7 @@ include "./includes/head.inc.html"
                       }
                 
                elseif(isset($_POST['supprimer'])){
-                    session_destroy();
+                    session_unset();
                     ?>
                     <div class="alert alert-success text-center" role="alert">
                       Données supprimées
@@ -207,7 +207,7 @@ include "./includes/head.inc.html"
                   
                   
                  <form method="post" action="index.php?add">
-                 <input type="submit" class="btn btn-primary" name="button1"
+                 <input type="submit" class="btn btn-primary offset-1" name="button1"
                  value="Ajouter des données"/>
                  </form>
                 
