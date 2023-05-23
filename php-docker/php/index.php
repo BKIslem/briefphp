@@ -7,12 +7,14 @@ $table = $_SESSION['table'];}
 function readTable() {
                       
   $table = $_SESSION['table'];
-$i = 0;
-foreach ($table as $index => $element) {?><p><?php
-echo 'à la ligne n° ' . $i . ' correspond la clé "' . $index . ' "et contient" '.$element .'"<br>';
-$i++;
-?> </p><?php
-}}
+  $i = 0;
+  foreach ($table as $index => $element) { 
+  if(is_array($element)) {
+    $element ='<img src="./uploaded/img1.jpg">';
+     }
+  echo 'à la ligne n° ' . $i . ' correspond la clé "' . $index . ' "et contient" '.$element .'"<br>';
+  $i++;}
+}
 ?>
 <!DOCTYPE html>
 <?php
@@ -74,25 +76,19 @@ include "./includes/head.inc.html"
                       $table ['Symphony'] = isset($_POST['Symphony']) ? $_POST['Symphony'] : null;
                       $table ['color'] = isset($_POST['color']) ? $_POST['color'] : null;
                       $table ['dateNaissance'] = isset($_POST['dateNaissance']) ? $_POST['dateNaissance'] : null;
-                      $table ['img'] = $_FILES['img']; 
-                      $file= $table ['img']; 
-                      $type = $file['type'];
-                      $size = $file['size'];
-                      $temp = $file['tmp_name'];
-                      $name = $file["name"]; 
-                      $path = 'uploaded/' . $name ;
-                      move_uploaded_file($temp, $path);
-                      $_SESSION['table'] = $table;
-                      if($size>2000000){
+                      if($_FILES["img"]["size"]>2000000){
                         echo'<div class="alert alert-danger" role="alert">
                         la taille de l\'image doit être inférieure à 2Mo
                       </div>';}
-                      elseif($type=='pdf'){
+                      elseif($_FILES["img"]["type"] == "application/pdf"){
                       echo'<div class="alert alert-danger" role="alert">Extension "PDF" non prise en charge 
-                      </div>';}
-                      elseif(isset($file['type'])){
+                      </div>';
+                      die;
+                    }
+                      elseif(empty($_FILES["img"]["type"])){
                         echo'<div class="alert alert-danger" role="alert">Aucun fichier n\'a été téléchargé 
                         </div>';
+                        die;
                       }
         
                         else{
@@ -102,6 +98,16 @@ include "./includes/head.inc.html"
                             </div> 
                             <?php
                             }
+                      $table ['img'] = $_FILES['img']; 
+                      $file= $table ['img']; 
+                      $type = $file['type'];
+                      $size = $file['size'];
+                      $temp = $file['tmp_name'];
+                      $name = $file["name"]; 
+                      $path = 'uploaded/' . "img1.jpg" ;
+                      move_uploaded_file($temp, $path);
+                      $_SESSION['table'] = $table;
+                      
     
                          }
 
@@ -168,11 +174,16 @@ include "./includes/head.inc.html"
                     <?php 
                 
                     $i = 0;
-                    foreach ($table as $index => $element) { ?><p><?php
-                      echo 'à la ligne n° ' . $i . ' correspond la clé "' . $index . ' "et contient" '.$element .'"<br>';
+                    
+                    foreach ($table as $index => $element) { 
+                      if(is_array($element)) {
+                        $element ='<img src="./uploaded/img1.jpg" max-width="100">';
+                         }
+                     echo 'à la ligne n° ' . $i . ' correspond la clé "' . $index . ' "et contient" '.$element .'"<br>';
+                     
                       $i++;
-                      ?></p><?php
-                  }
+                      
+                    }
                   }
                elseif(isset($_POST['fonction'])){
                     ?>
@@ -189,7 +200,7 @@ include "./includes/head.inc.html"
                       Données supprimées
                     </div> 
                     <?php
-                  }
+               }
                  
                else{   ?>
                  <div class="d-flex">
