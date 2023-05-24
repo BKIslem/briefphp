@@ -1,7 +1,7 @@
 <?php
 session_start();
 $table = array();
-error_reporting(E_ALL);
+
 if (isset($_SESSION['table'])){
 $table = $_SESSION['table'];}
 function readTable() {
@@ -114,7 +114,7 @@ include "./includes/head.inc.html"
                elseif(isset($_POST['deb'])){
                 print"<pre>";
                     print_r($table);
-                    print"<pre>";
+                    print"</pre>";
                     }
                elseif(isset($_POST['conca'])){
                           ?>
