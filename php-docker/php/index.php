@@ -40,8 +40,13 @@ include "./includes/head.inc.html"
               <?php
                if (isset($_GET['add'])) {
                   ?><h1 class="text-center">Ajouter des données</h1>
+                  <form method="post" action="/index.php" enctype="multipart/form-data">
                   <?php
-                  include "./includes/form.inc.html";}
+                  include "./includes/form.inc.html";?>
+                  <input type="submit" class="btn btn-primary float-end" name="enregister"
+                  value="Enregistrer des données"/>
+                    </form><?php
+                    }
                 
                elseif (isset($_POST ['enregister'])){
                   $table ['first_name'] = isset($_POST['prenom']) ? $_POST['prenom'] : null;
@@ -61,7 +66,6 @@ include "./includes/head.inc.html"
                       include "./includes/form2.inc.php";
                     }
                elseif (isset($_POST ['enregister_f2'])){
-               
                       $table ['first_name'] = isset($_POST['prenom']) ? $_POST['prenom'] : null;
                       $table ['last_name'] = isset($_POST['nom']) ? $_POST['nom'] : null;
                       $table ['age'] = isset($_POST['age']) ? $_POST['age'] : null;
@@ -76,28 +80,34 @@ include "./includes/head.inc.html"
                       $table ['Symphony'] = isset($_POST['Symphony']) ? $_POST['Symphony'] : null;
                       $table ['color'] = isset($_POST['color']) ? $_POST['color'] : null;
                       $table ['dateNaissance'] = isset($_POST['dateNaissance']) ? $_POST['dateNaissance'] : null;
-                      if($_FILES["img"]["size"]>2000000){
-                        echo'<div class="alert alert-danger" role="alert">
-                        la taille de l\'image doit être inférieure à 2Mo
-                      </div>';}
-                      elseif($_FILES["img"]["type"] == "application/pdf"){
-                      echo'<div class="alert alert-danger" role="alert">Extension "PDF" non prise en charge 
-                      </div>';
-                      die;
-                    }
-                      elseif(empty($_FILES["img"]["type"])){
-                        echo'<div class="alert alert-danger" role="alert">Aucun fichier n\'a été téléchargé 
-                        </div>';
-                        die;
-                      }
-        
-                        else{
-                           ?>
+                      $_SESSION['table'] = $table;
+                      ?>
                            <div class="alert alert-success text-center" role="alert">
                               Données sauvegardées
                             </div> 
                             <?php
-                            }
+                      if($_FILES["img"]["size"]>2000000){
+                        echo'<div class="alert alert-danger text-center" role="alert">
+                        la taille de l\'image doit être inférieure à 2Mo
+                        </div>';
+                        return;
+                      }
+                      elseif($_FILES["img"]["type"] == "application/pdf"){
+                        echo'<div class="alert alert-danger text-center" role="alert">Extension "'.$_FILES["img"]["type"].'" non prise en charge 
+                        </div>';
+                        return;
+                      }
+                      elseif(empty($_FILES["img"]["type"])){
+                        echo'<div class="alert alert-danger text-center" role="alert">Aucun fichier n\'a été téléchargé 
+                        </div>';
+                        return;
+                      }
+        
+                      else{
+                        
+                      echo'<div class="alert alert-danger text-center" role="alert">error: 1</div>';
+                      return;
+                      }
                       $table ['img'] = $_FILES['img']; 
                       $file= $table ['img']; 
                       $type = $file['type'];

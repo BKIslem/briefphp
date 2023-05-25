@@ -2,31 +2,9 @@
 <h2 class='text-center'>Ajouter plus de données</h2>
 <div class='row'>
     <div class='card col-md-7 mx-auto my-1'>
-          <br>
-          <input type="text" class="form-control" name="prenom" id="prenom" placeholder="Prénom" required>
-          <br>
-          <input type="text" class="form-control" name="nom" id="nom" placeholder="Nom" required>
-          <br>
-          <label for="nom">Age (18 à 70 ans)</label>
-          <input type="number" name="age" id="typeNumber" class="form-control" placeholder="Renseignez votre age" min="18" max="70" required>
-          <br>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Taille (1,26m à 3m)</span>
-            </div>
-              <input type="number" name="taille" id="typeNumber" class="form-control" step="0.01" min="1.26" max="3.00" required>
-            <div class="input-group-append">
-              <span class="input-group-text">m</span>
-            </div>
-          </div>
-          <div class="form-check form-check-inline">
-          <label class="form-check-label" for="radio1">Femme
-                <input class="form-check-input" type="radio" name="radio" id="radio1" value="Women" required>
-                </label>
-                <label style="padding-left: 2rem" class="form-check-label" for="radio2">Homme
-                <input class="form-check-input" type="radio" name="radio" id="radio2" value="Man" required>
-                </label>
-            </div>
+        <br>
+          <?php
+          include "./includes/form.inc.html";?>
     </div>
         <div class='card col-md-4 mx-auto my-1 '>
           
