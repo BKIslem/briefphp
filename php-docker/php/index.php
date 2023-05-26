@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $table = array();
 $ext= ["image/jpg","image/png","image/jpeg"];
 
@@ -125,6 +126,7 @@ include "./includes/head.inc.html"
                                 $size = $file['size'];
                                 $temp = $file['tmp_name'];
                                 $name = $file["name"]; 
+                                !is_dir('uploaded') ? mkdir('uploaded') : NULL;
                                 $path = 'uploaded/' .$name ;
                                 move_uploaded_file($temp, $path);}
                                 else{
