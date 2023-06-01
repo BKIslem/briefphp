@@ -6,15 +6,15 @@ $ext= ["image/jpg","image/png","image/jpeg"];
 
 if (isset($_SESSION['table'])){
 $table = $_SESSION['table'];}
-function readTable() {
+
+function readTable($table) {
                       
-  $table = $_SESSION['table'];
   $i = 0;
   foreach ($table as $index => $element) { 
   if(is_array($element)) {
     $element ='<img src="./uploaded/'.$table["img"]["name"].'"' .' style="max-width:100%">';
      }
-  echo 'à la ligne n° ' . $i . ' correspond la clé "' . $index . ' "et contient" '.$element .'"<br>';
+  echo 'à la ligne n° ' . $i . ' correspond la clé "' . $index . ' "et contient" '.htmlspecialchars($element) .'"<br>';
   $i++;}
 }
 ?>
@@ -58,8 +58,8 @@ include "./includes/head.inc.html"
                   bah non!<br>Au minimum 3 lettres dans le prénom et pareil pour le nom
                   </div>';}
                   else{
-                  $table ['first_name'] = isset($_POST['prenom']) ? $_POST['prenom'] : null;
-                  $table ['last_name'] = isset($_POST['nom']) ? $_POST['nom'] : null;
+                  $table ['first_name'] = isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : null;
+                  $table ['last_name'] = isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : null;
                   $table ['age'] = isset($_POST['age']) ? $_POST['age'] : null;
                   $table ['size'] = isset($_POST['taille']) ? $_POST['taille'] : null;
                   $table ['civility'] = isset($_POST['radio']) ? $_POST['radio'] : null;  
@@ -86,8 +86,8 @@ include "./includes/head.inc.html"
                   bah non!<br>Au minimum 3 lettres dans le prénom et pareil pour le nom
                   </div>';}
                   else{
-                    $table ['first_name'] = isset($_POST['prenom']) ? $_POST['prenom'] : null;
-                    $table ['last_name'] = isset($_POST['nom']) ? $_POST['nom'] : null;
+                    $table ['first_name'] = isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : null;
+                    $table ['last_name'] = isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : null;
                     $table ['age'] = isset($_POST['age']) ? $_POST['age'] : null;
                     $table ['size'] = isset($_POST['taille']) ? $_POST['taille'] : null;
                     $table ['civility'] = isset($_POST['radio']) ? $_POST['radio'] : null; 
@@ -119,7 +119,6 @@ include "./includes/head.inc.html"
                                 echo'<div class="alert alert-success text-center" role="alert">
                                 Image sauvegardée
                                 </div>';
-                                $table ['img'] = $_FILES['img']; 
                                 $table ['img'] = $_FILES['img']; 
                                 $file= $table ['img']; 
                                 $type = $file['type'];
@@ -167,7 +166,7 @@ include "./includes/head.inc.html"
                             
                           }
                           
-                          echo ucfirst($table['first_name'])." ".ucfirst($table['last_name'])."<br>J'ai "
+                          echo ucfirst( htmlspecialchars($table['first_name']))." ".ucfirst(htmlspecialchars($table['last_name']))."<br>J'ai "
                           .$table['age']." ans et je mesure ".$table['size']." m.";
                           ?>
                           </p>
@@ -182,7 +181,7 @@ include "./includes/head.inc.html"
                               echo"Mme ";
                               
                             }
-                            echo ucfirst($table['first_name'])." ".strtoupper($table['last_name'])
+                            echo ucfirst(htmlspecialchars($table['first_name']))." ".strtoupper(htmlspecialchars($table['last_name']))
                             ."<br>J'ai ".$table['age']." ans et je mesure ".$table['size']." m.";
                             ?>
                             </p>
@@ -198,7 +197,7 @@ include "./includes/head.inc.html"
                               echo"Mme ";
                               
                             }
-                            echo ucfirst($table['first_name'])." ".strtoupper($table['last_name'])
+                            echo ucfirst(htmlspecialchars($table['first_name']))." ".strtoupper(htmlspecialchars($table['last_name']))
                             ."<br>J'ai ".$table['age']." ans et je mesure ".str_replace('.', ',', $table['size'])." m.";
                             ?> </p><?php
 
@@ -220,7 +219,7 @@ include "./includes/head.inc.html"
                       if(is_array($element)) {
                         $element ='<img src="./uploaded/'.$table["img"]["name"].'"' .' style="max-width:100%">';
                          }
-                     echo 'à la ligne n° ' . $i . ' correspond la clé "' . $index . ' "et contient" '.$element .'"<br>';
+                     echo 'à la ligne n° ' . $i . ' correspond la clé "' . $index . ' "et contient" '.htmlspecialchars($element) .'"<br>';
                      
                       $i++;
                       
@@ -231,7 +230,7 @@ include "./includes/head.inc.html"
                     <h2 class='text-center'>Fonction</h2>
                     <h3>===> J'utilise ma fonction readTable</h3>
                     <?php 
-                     readTable();
+                     readTable($table);
                       }
                 
                elseif(isset($_POST['supprimer'])){
